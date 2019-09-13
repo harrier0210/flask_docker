@@ -1,8 +1,5 @@
 # 環境構築手順
 
-## git clone
-
-* git clone
 
 ## docker install
 
