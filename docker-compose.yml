@@ -1,0 +1,23 @@
+version: '3'
+services:
+  maria_db:
+    container_name: maria_db
+    image: mariadb:10
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./db/sqls:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_USER: python
+      MYSQL_PASSWORD: python
+      MYSQL_DATABASE: sample
+  web:
+    container_name: flask
+    build: .
+    ports:
+      - "5000:80"
+    volumes:
+      - .:/app
+    links:
+    - maria_db
