@@ -2,16 +2,18 @@ version: '3'
 services:
   maria_db:
     container_name: maria_db
-    image: mariadb:10
+    image: mariadb:10.2.11
     ports:
-      - '3306:3306'
-    volumes:
-      - ./db/sqls:/docker-entrypoint-initdb.d
+      - "3306:3306"
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --log_warnings=1
     environment:
-      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: test
       MYSQL_USER: python
       MYSQL_PASSWORD: python
       MYSQL_DATABASE: sample
+    volumes:
+      - ./db/sqls:/docker-entrypoint-initdb.d
+
   web:
     container_name: flask
     build: .
@@ -19,5 +21,6 @@ services:
       - "5000:80"
     volumes:
       - .:/app
-    links:
-    - maria_db
+    depends_on:
+      - maria_db
+    command: sh -c "python wait.py && python app.py"
