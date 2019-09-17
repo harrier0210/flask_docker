@@ -17,7 +17,3 @@ EXPOSE 80
 
 # Docker イメージ中の環境変数を指定する
 ENV NAME World
-
-# コンテナが起動したときに実行される命令を指定する
-# ここでは後述の ｢app.py ｣を実行するよう指示している
-CMD ["python", "app.py"]
