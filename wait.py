@@ -5,10 +5,10 @@ import time
 for i in range(60):
     try:
         connector = mysql.connector.connect(
-                    user='python',
-                    password='python',
+                    user='root',
+                    password='test',
                     host='maria_db',
-                    database='sample')
+                    database='test')
         break
     except Exception as e:
         print('Waiting for DB setting completion...')

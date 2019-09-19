@@ -8,7 +8,7 @@ WORKDIR /app
 ADD . /app
 
 # ｢ requirements.txt ｣にリストされたパッケージをインストールする
-
+RUN apk --no-cache add alpine-sdk libffi-dev python-dev openssl-dev
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 

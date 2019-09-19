@@ -8,14 +8,11 @@ services:
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --log_warnings=1
     environment:
       MYSQL_ROOT_PASSWORD: test
-      MYSQL_USER: python
-      MYSQL_PASSWORD: python
-      MYSQL_DATABASE: sample
     volumes:
       - ./db/sqls:/docker-entrypoint-initdb.d
-
   web:
     container_name: flask
+    tty: true
     build: .
     ports:
       - "5000:80"

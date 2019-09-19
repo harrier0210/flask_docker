@@ -1,6 +1,5 @@
 # 環境構築手順
 
-
 ## docker install
 
 * 下記からdocker for windows をインインストール
@@ -22,10 +21,11 @@
 
 ## コンテナ起動
 
-* docker-compose up -d --build
+* docker-compose up -d
 * localhost:5000 にアクセス
-* docker-compose stop でコンテナ停止
+* docker-compose down でコンテナ停止
 * docker exec -it flask sh でコンテナ内に入れる
+* mysql -u python -p DBアクセス(maria_dbコンテナ内)
 
 
 * 参考サイト
