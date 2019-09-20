@@ -1,29 +1,36 @@
 import mysql.connector
 
-class DB:
+class DB(object):
 
-    connector = mysql.connector.connect(
-                user='root',
-                password='test',
-                host='maria_db',
-                database='test')
-    cursor = connector.cursor(dictionary=True)
+    def __init__(self):
+        self.connector = ""
+        self.cursor = ""
 
-    def execute(sql, data=None):
-        DB.cursor.execute(sql, data)
-        DB.close()
-        return DB.cursor.fetchone()
+    def connect(self):
+        self.connector = mysql.connector.connect(
+                    user='root',
+                    password='test',
+                    host='maria_db',
+                    database='test')
+        self.cursor = self.connector.cursor(dictionary=True)
 
-    def execute_list(sql, data=None):
-        DB.cursor.execute(sql, data)
-        DB.close()
-        return DB.cursor.fetchall()
+    def execute(self, sql, data=None):
+        self.cursor.execute(sql, data)
+        self.close()
+        return self.cursor.fetchone()
 
-    def update(sql, data=None):
-        DB.cursor.execute(sql, data)
-        DB.connector.commit()
-        DB.close()
+    def execute_list(self, sql, data=None):
+        self.cursor.execute(sql, data)
+        self.close()
+        return self.cursor.fetchall()
 
-    def close():
-        DB.cursor.close
-        DB.connector.close
+    def update(self, sql, data=None):
+        self.cursor.execute(sql, data)
+        self.close()
+
+    def commit(self):
+        self.connector.commit()
+
+    def close(self):
+        self.cursor.close
+        self.connector.close
