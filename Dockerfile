@@ -1,5 +1,5 @@
 # ベースイメージとして python v3.7 を使用する
-FROM python:3.7.2-alpine
+FROM node:12.10.0-alpine
 
 # 以降の RUN, CMD コマンドで使われる作業ディレクトリを指定する
 WORKDIR /app
@@ -7,13 +7,13 @@ WORKDIR /app
 # カレントディレクトリにある資産をコンテナ上の ｢/app｣ ディレクトリにコピーする
 ADD . /app
 
-# ｢ requirements.txt ｣にリストされたパッケージをインストールする
-RUN apk --no-cache add alpine-sdk libffi-dev python-dev openssl-dev
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+RUN apk update && \
+    apk add git && \
+    apk add --no-cache curl && \
+    curl -o- -L https://yarnpkg.com/install.sh | sh
 
-# Docker に対して｢ 80 番ポート ｣で待受けするよう指定する
-EXPOSE 80
+ENV PATH $HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH
 
-# Docker イメージ中の環境変数を指定する
-ENV NAME World
+ENV CHOKIDAR_USEPOLLING=true
+RUN yarn global add @vue/cli
+RUn yarn install

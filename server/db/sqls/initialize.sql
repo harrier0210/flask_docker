@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS sfor_db;
-use sfor_db;
+CREATE DATABASE IF NOT EXISTS test;
+use teset;
 
 CREATE TABLE `users` (
   `id` int(3) NOT NULL AUTO_INCREMENT,

@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_jwt_extended import (
     jwt_required, fresh_jwt_required, create_access_token,
-    get_jwt_identity, get_jti, get_raw_jwt
+    get_jwt_identity, get_jti, get_raw_jwt, get_current_user
 )
 from util.db import DB
 import bcrypt
@@ -11,7 +11,7 @@ app = Blueprint('user', __name__, url_prefix='/api/v1')
 
 @app.route('/sign_in', methods=['post'])
 #@fresh_jwt_required
-def login():
+def sign_in():
     try:
         name = request.json.get("name")
         password = request.json.get("password")
@@ -38,6 +38,15 @@ def protected():
     if not user:
         return jsonify( {"message": "Bad access token"} ), 401
     return jsonify( user ), 200
+
+@app.route("/sign_out", methods=["GET"])
+@fresh_jwt_required
+def sign_out():
+    print(get_jwt_identity())
+    sql = "UPDATE users SET jti=null WHERE id=%s"
+    DB.update(sql, [ get_jwt_identity() ])
+
+    return '', 204
 
 def auth_jti(id, token_jti):
     sql = "SELECT id, name, jti FROM users WHERE id=%s"
