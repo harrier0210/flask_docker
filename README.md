@@ -1,25 +1,3 @@
-# 環境構築手順
-
-
-## docker install
-
-* 下記からdocker for windows をインインストール
- * ※docker hubのアカウント登録する必要あり
- * https://docs.docker.com/docker-for-windows/install/
-
- * 参考サイト
- * https://ops.jig-saw.com/techblog/docker-for-windows-install/
-
-
-## install後の設定
-
-* 画面右下のクジラのアイコンクリック
-* docker switch to linux containersをクリック
-* 再度クジラのアイコンクリック
-* settings
-* shared drives
-* 「C」を選択してapply
-
 ## コンテナ起動
 
 * docker-compose up -d
