@@ -16,4 +16,4 @@ ENV PATH $HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH
 
 ENV CHOKIDAR_USEPOLLING=true
 RUN yarn global add @vue/cli
-RUn yarn install
+RUN yarn install
